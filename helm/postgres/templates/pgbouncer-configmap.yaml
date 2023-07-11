@@ -1,0 +1,12 @@
+{{- if .Values.pgBouncerHBA }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ default .Release.Name .Values.name }}-pgbouncer-custom-config-files
+data:
+  {{- with .Values.pgBouncerHBA }}
+  bouncer_hba.conf:
+{{- toYaml . | nindent 4 }}
+  {{- end }}
+{{- end }}
